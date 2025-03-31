@@ -1,3 +1,16 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()  # Load environment variables from the .env file
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+
+# Validate the API keys
+if not GEMINI_API_KEY or not TMDB_API_KEY:
+    st.error("⚠️ API Keys are missing! Set them in the `.env` file.")
+    st.stop()
+
 import streamlit as st
 import google.generativeai as genai
 import requests
@@ -5,8 +18,6 @@ import os
 from dotenv import load_dotenv
 
 # Load API keys from .env file
-load_dotenv()
-
 # Fetch API keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 TMDB_API_KEY = os.getenv("TMDB_API_KEY")
