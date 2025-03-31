@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 # Load API keys from .env file
 load_dotenv()
+
+# Fetch API keys
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 TMDB_API_KEY = os.getenv("TMDB_API_KEY")
 
@@ -37,7 +39,7 @@ def fetch_movie_details(movie_name):
     movie_data = requests.get(details_url).json()
 
     # Extract details with error handling
-    poster_url = f"https://image.tmdb.org/t/p/w300{movie.get('poster_path', '')}" if movie.get("poster_path") else None  # Small poster
+    poster_url = f"https://image.tmdb.org/t/p/w300{movie.get('poster_path', '')}" if movie.get("poster_path") else None
     story = movie_data.get("overview", "No description available.")
 
     # Handle missing release date
@@ -49,7 +51,7 @@ def fetch_movie_details(movie_name):
     if "credits" in movie_data and "crew" in movie_data["credits"]:
         director_list = [crew["name"] for crew in movie_data["credits"]["crew"] if crew.get("job") == "Director"]
         if director_list:
-            director = director_list[0]  # Get the first director found
+            director = director_list[0]
 
     # Get top 5 cast members
     cast = [
@@ -90,7 +92,7 @@ if movie_input:
     if movie_details:
         st.subheader(f"🎬 {movie_details['title']}")
         if movie_details["poster"]:
-            st.image(movie_details["poster"], caption=movie_details["title"], width=500)  # Smaller poster size
+            st.image(movie_details["poster"], caption=movie_details["title"], width=500)
 
         st.write(f"📅 **Release Year:** {movie_details['release_year']}")
         st.write(f"🎬 **Director:** {movie_details['director']}")
