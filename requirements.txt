@@ -1,4 +1,4 @@
-google-generativeai
-streamlit
-requests
+Flask
 python-dotenv
+requests
+google-generativeai
